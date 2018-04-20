@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarev <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 16:21:18 by skarev            #+#    #+#             */
-/*   Updated: 2018/03/28 16:21:18 by skarev           ###   ########.fr       */
+/*   Created: 2018/04/15 18:37:57 by skarev            #+#    #+#             */
+/*   Updated: 2018/04/15 18:37:58 by skarev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t len)
+void	ft_lst_push_back(t_list **begin_list, void *data)
 {
-	size_t		i;
-	size_t		j;
+	t_list *elem;
 
-	i = 0;
-	j = 0;
-	while (str1[i] && (i < len))
+	elem = *begin_list;
+	if (*begin_list)
 	{
-		while ((str1[i + j] == str2[j]) && str2[j] && ((i + j) < len))
-			j++;
-		if (!str2[j])
-			return ((char *)&str1[i]);
-		j = 0;
-		i++;
+		while (elem->next)
+			elem = elem->next;
+		elem->next = ft_lst_create_elem(data);
 	}
-	if (!str2[0])
-		return ((char *)&str1[i]);
-	return (NULL);
 }

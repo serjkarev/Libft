@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarev <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 16:21:18 by skarev            #+#    #+#             */
-/*   Updated: 2018/03/28 16:21:18 by skarev           ###   ########.fr       */
+/*   Created: 2018/04/11 17:38:06 by skarev            #+#    #+#             */
+/*   Updated: 2018/04/11 17:38:07 by skarev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t len)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	size_t		i;
-	size_t		j;
+	t_list *tmp;
+	t_list *newelem;
+	t_list *ret;
 
-	i = 0;
-	j = 0;
-	while (str1[i] && (i < len))
+	ret = NULL;
+	if (!lst || !f)
+		return (NULL);
+	tmp = lst;
+	while (tmp)
 	{
-		while ((str1[i + j] == str2[j]) && str2[j] && ((i + j) < len))
-			j++;
-		if (!str2[j])
-			return ((char *)&str1[i]);
-		j = 0;
-		i++;
+		if (!ret)
+		{
+			ret = f(tmp);
+			newelem = ret;
+		}
+		else
+		{
+			newelem->next = f(tmp);
+			newelem = newelem->next;
+		}
+		tmp = tmp->next;
 	}
-	if (!str2[0])
-		return ((char *)&str1[i]);
-	return (NULL);
+	newelem->next = NULL;
+	return (ret);
 }

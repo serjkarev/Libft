@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarev <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 16:21:18 by skarev            #+#    #+#             */
-/*   Updated: 2018/03/28 16:21:18 by skarev           ###   ########.fr       */
+/*   Created: 2018/04/14 22:17:51 by skarev            #+#    #+#             */
+/*   Updated: 2018/04/14 22:17:54 by skarev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t len)
+size_t	ft_nbrlen(int n)
 {
 	size_t		i;
-	size_t		j;
 
-	i = 0;
-	j = 0;
-	while (str1[i] && (i < len))
-	{
-		while ((str1[i + j] == str2[j]) && str2[j] && ((i + j) < len))
-			j++;
-		if (!str2[j])
-			return ((char *)&str1[i]);
-		j = 0;
+	i = 1;
+	if (n < 0)
 		i++;
-	}
-	if (!str2[0])
-		return ((char *)&str1[i]);
-	return (NULL);
+	while (n /= 10)
+		i++;
+	return (i);
 }

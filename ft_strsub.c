@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarev <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 16:21:18 by skarev            #+#    #+#             */
-/*   Updated: 2018/03/28 16:21:18 by skarev           ###   ########.fr       */
+/*   Created: 2018/04/05 16:45:34 by skarev            #+#    #+#             */
+/*   Updated: 2018/04/05 16:45:35 by skarev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t len)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	size_t		i;
-	size_t		j;
+	unsigned int	i;
+	char			*str;
 
 	i = 0;
-	j = 0;
-	while (str1[i] && (i < len))
+	if (!s)
+		return (0);
+	str = (char*)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (0);
+	while (i < len)
 	{
-		while ((str1[i + j] == str2[j]) && str2[j] && ((i + j) < len))
-			j++;
-		if (!str2[j])
-			return ((char *)&str1[i]);
-		j = 0;
+		str[i] = s[i + start];
 		i++;
 	}
-	if (!str2[0])
-		return ((char *)&str1[i]);
-	return (NULL);
+	str[i] = '\0';
+	return (str);
 }

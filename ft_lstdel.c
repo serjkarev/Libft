@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarev <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 16:21:18 by skarev            #+#    #+#             */
-/*   Updated: 2018/03/28 16:21:18 by skarev           ###   ########.fr       */
+/*   Created: 2018/04/11 17:36:59 by skarev            #+#    #+#             */
+/*   Updated: 2018/04/11 17:36:59 by skarev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t len)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	size_t		i;
-	size_t		j;
+	t_list *tmp;
+	t_list *link;
 
-	i = 0;
-	j = 0;
-	while (str1[i] && (i < len))
+	tmp = *alst;
+	while (tmp)
 	{
-		while ((str1[i + j] == str2[j]) && str2[j] && ((i + j) < len))
-			j++;
-		if (!str2[j])
-			return ((char *)&str1[i]);
-		j = 0;
-		i++;
+		link = tmp->next;
+		del((tmp->content), (tmp->content_size));
+		free(tmp);
+		tmp = link;
 	}
-	if (!str2[0])
-		return ((char *)&str1[i]);
-	return (NULL);
+	*alst = NULL;
 }

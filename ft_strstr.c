@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strstr(const char *str1, const char *str2)
+char	*ft_strstr(const char *big, const char *little)
 {
-	const char *s1;
+	int i;
+	int j;
 
-	if (*str2 == '\0')
-		return ((char*)str1);
-	while (*str1 != '\0')
+	i = 0;
+	j = 0;
+	if (little[i] == '\0')
+		return ((char*)&big[i]);
+	while (big[i] != '\0')
 	{
-		s1 = str1;
-		while (*s1 != '\0' && *s1 == *str2)
-		{
-			s1++;
-			str2++;
-		}
-		if (*str2 == '\0')
-			return ((char*)str1);
-		str1++;
+		while (big[i + j] == little[j] && little[j] != '\0')
+			j++;
+		if (little[j] == '\0')
+			return ((char*)&big[i]);
+		j = 0;
+		i++;
 	}
 	return (0);
 }
